@@ -1,7 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import treeReducer from "./treeSlice";
+import shakeButtonReducer from "./shakeButtonSlice";
+import treeReducer from "./tree";
 export default configureStore({
   reducer: {
+    shakeButton: shakeButtonReducer,
     tree: treeReducer,
   },
 });

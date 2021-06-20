@@ -3,43 +3,42 @@ import useStateRef from "react-usestateref";
 import { ReactComponent as AppleImg } from "../../global/assets/images/apple.svg";
 import "./Apple.scss";
 
-function Apple() {
-  const randomStart = (coordinates) => {
-    let coordinate = {};
-    do {
-      coordinate.y = Math.random() * 47;
-      coordinate.x = Math.random() * 61;
-    } while (coordinate.y < 15 || coordinate.x < 20);
-
-    return { left: coordinate.x, top: coordinate.y };
-  };
-
-  const [appleLocation, setAppleLocation, locationRef] = useStateRef(
-    randomStart()
-  );
+function Apple(props) {
+  const { coordinate } = props;
+  const [appleLocation, setAppleLocation, locationRef] =
+    useStateRef(coordinate);
 
   useEffect(() => {
-    // Drop Apple with timeout
+    // Drop Apples with timeout
     setTimeout(() => {
       const yInterval = setInterval(() => {
         setAppleLocation({
-          top: locationRef.current.top + 1,
+          y: locationRef.current.y + 1,
+          done: false,
         });
-        console.log(locationRef.current);
-        locationRef.current.top >= 90 && clearInterval(yInterval);
+
+        if (locationRef.current.y >= 90) {
+          clearInterval(yInterval);
+          // Set drop status done
+          setAppleLocation({ y: locationRef.current.y, done: true });
+        }
       }, 50);
     }, 3000);
   }, [locationRef, setAppleLocation]);
 
+  console.log(appleLocation);
   return (
     <div
       style={{
         position: "absolute",
-        top: appleLocation.top + "%",
-        left: appleLocation.left + "%",
+        top: appleLocation.y + "%",
+        left: appleLocation.x + "%",
       }}
     >
-      <AppleImg className="apple" />
+      <AppleImg
+        style={{ display: appleLocation.done ? "none" : "block" }}
+        className="apple"
+      />
     </div>
   );
 }

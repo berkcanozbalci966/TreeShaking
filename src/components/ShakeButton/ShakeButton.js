@@ -1,9 +1,12 @@
 import React from "react";
+import "./ShakeButton.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { shakeTreeToggler, shakeDone } from "../../store/treeSlice";
+import { shakeTreeToggler, shakeDone } from "../../store/shakeButtonSlice";
 
 function ShakeButton(props) {
-  const shakeTreeState = useSelector((state) => state.tree.shakeTreeState);
+  const shakeTreeState = useSelector(
+    (state) => state.shakeButton.shakeTreeState
+  );
   const dispatch = useDispatch();
 
   const shakeThatTree = () => {
@@ -16,7 +19,7 @@ function ShakeButton(props) {
   return (
     <div>
       <button
-        disabled={!shakeTreeState ? false : true}
+        disabled={shakeTreeState ? true : null}
         onClick={() => shakeThatTree()}
       >
         Shake that tree

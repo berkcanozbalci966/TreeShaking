@@ -1,18 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const treeSlice = createSlice({
-  name: "tree",
+export const shakeButton = createSlice({
+  name: "shakeButton",
   initialState: {
     coordinates: [],
     shakeTreeState: false,
   },
   reducers: {
-    fusionCoordinates: (state) => {},
+    // Shake Toggler
     shakeTreeToggler: (state) => {
       if (!state.shakeTreeState) {
         state.shakeTreeState = !state.shakeTreeState;
       }
     },
+    // Shake done method
     shakeDone: (state) => {
       state.shakeTreeState = false;
     },
@@ -20,6 +21,6 @@ export const treeSlice = createSlice({
 });
 
 export const { fusionCoordinates, shakeTreeToggler, shakeDone } =
-  treeSlice.actions;
+  shakeButton.actions;
 
-export default treeSlice.reducer;
+export default shakeButton.reducer;

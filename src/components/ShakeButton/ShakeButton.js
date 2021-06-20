@@ -1,20 +1,26 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { shakeTreeToggler, shakeDone } from "../../store/treeSlice";
 
 function ShakeButton(props) {
-  const { shakeTree, setShakeTree } = props.treeProp;
+  const shakeTreeState = useSelector((state) => state.tree.shakeTreeState);
+  const dispatch = useDispatch();
 
   const shakeThatTree = () => {
-    if (!shakeTree) {
-      setShakeTree(true);
-      setTimeout(() => {
-        setShakeTree(false);
-      }, 3000);
-    }
+    dispatch(shakeTreeToggler());
+    setTimeout(() => {
+      dispatch(shakeDone());
+    }, 3000);
   };
 
   return (
     <div>
-      <button onClick={() => shakeThatTree()}>Shake that tree</button>
+      <button
+        disabled={!shakeTreeState ? false : true}
+        onClick={() => shakeThatTree()}
+      >
+        Shake that tree
+      </button>
     </div>
   );
 }

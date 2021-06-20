@@ -1,37 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import useStateRef from "react-usestateref";
 import { ReactComponent as AppleImg } from "../../global/assets/images/apple.svg";
 import "./Apple.scss";
 
 function Apple() {
   const randomStart = (coordinates) => {
-    if (coordinates === "y") {
-      let randomY = Math.random() * 53;
-      return randomY < 47 && randomY > 15 ? randomY : randomStart("y");
-    } else {
-      let randomY = Math.random() * 61;
-      return randomY < 61 && randomY > 20 ? randomY : randomStart("y");
-    }
+    let coordinate = {};
+    do {
+      coordinate.y = Math.random() * 47;
+      coordinate.x = Math.random() * 61;
+    } while (coordinate.y < 15 || coordinate.x < 20);
+
+    return { left: coordinate.x, top: coordinate.y };
   };
-  const [top, setTop, yRef] = useStateRef(randomStart("y"));
-  const [left, setLeft, xRef] = useStateRef(randomStart());
+
+  const [appleLocation, setAppleLocation, locationRef] = useStateRef(
+    randomStart()
+  );
 
   useEffect(() => {
+    // Drop Apple with timeout
     setTimeout(() => {
       const yInterval = setInterval(() => {
-        setTop(yRef.current + 1);
-        console.log(yRef.current);
-        yRef.current >= 90 && clearInterval(yInterval);
+        setAppleLocation({
+          top: locationRef.current.top + 1,
+        });
+        console.log(locationRef.current);
+        locationRef.current.top >= 90 && clearInterval(yInterval);
       }, 50);
-    }, 4000);
-  }, []);
+    }, 3000);
+  }, [locationRef, setAppleLocation]);
 
   return (
     <div
       style={{
         position: "absolute",
-        top: top + "%",
-        left: left + "%",
+        top: appleLocation.top + "%",
+        left: appleLocation.left + "%",
       }}
     >
       <AppleImg className="apple" />

@@ -4,17 +4,19 @@ export const applesSlice = createSlice({
   name: "apples",
   initialState: {
     coordinates: [],
+    shakeTree: false,
   },
   reducers: {
     fusionCoordinates: (state) => {},
-    generateCoordinates: (coordinates) => {
-      if (coordinates === "y") {
-        let randomY = Math.random() * 53;
-        return randomY < 47 && randomY > 15 ? randomY : randomStart("y");
-      } else {
-        let randomY = Math.random() * 61;
-        return randomY < 61 && randomY > 20 ? randomY : randomStart("y");
+    shakeTreeToggler: (state) => {
+      if (!state.shakeTree) {
+        state.shakeTree = !state.shakeTree;
       }
+      setTimeout(() => (state.shakeTree = false), 3000);
     },
   },
 });
+
+export const { fusionCoordinates, shakeTreeToggler } = applesSlice.actions;
+
+export default applesSlice.reducer;

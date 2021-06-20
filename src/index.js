@@ -19,13 +19,7 @@ const App = () => {
 
   return (
     <div style={{ flexDirection: "column" }} className="container">
-      <Tree
-        className={
-          shakeTreeState
-            ? "animate__animated animate__wobble animate__slower"
-            : null
-        }
-      />
+      <Tree shakeTreeState={shakeTreeState} />
       <Basket />
       <ShakeButton />
     </div>

@@ -4,23 +4,33 @@ import "./Tree.scss";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-import { appleCoordinateGenerator } from "../../store/tree";
+import {
+  appleCoordinateGenerator,
+  removeApple,
+  checkAppleCoordinate,
+} from "../../store/tree";
 
 // Components
 import Apple from "../Apple/Apple";
 
 function TreeComponent(props) {
   const apples = useSelector((state) => state.tree.apples);
+  const checkStatus = useSelector((state) => state.tree.checkStatus);
   const dispatch = useDispatch();
-  console.log(apples);
+
+  const { shakeTreeState } = props;
   useEffect(() => {
     dispatch(appleCoordinateGenerator());
     dispatch(appleCoordinateGenerator());
     dispatch(appleCoordinateGenerator());
     dispatch(appleCoordinateGenerator());
+    dispatch(checkAppleCoordinate());
+
+    // setTimeout(() => {   dispatch(removeApple(0)); }, 1000);
   }, [dispatch]);
 
-  const { className } = props;
+  console.log("apples", apples);
+  console.log("status", checkStatus);
   return (
     <div
       style={{
@@ -28,8 +38,14 @@ function TreeComponent(props) {
         display: "inline-block",
       }}
     >
-      <div className={className}>
-        <TreeImg />
+      <div
+        className={
+          shakeTreeState
+            ? "animate__animated animate__wobble animate__slower"
+            : null
+        }
+      >
+        <TreeImg />{" "}
         {apples.map((coordinate, index) => (
           <Apple key={"apple-" + index} coordinate={coordinate} />
         ))}

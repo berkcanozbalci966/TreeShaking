@@ -4,33 +4,26 @@ import "./Tree.scss";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-import {
-  appleCoordinateGenerator,
-  removeApple,
-  checkAppleCoordinate,
-} from "../../store/tree";
+import { initTree } from "../../store/tree";
 
 // Components
 import Apple from "../Apple/Apple";
 
 function TreeComponent(props) {
   const apples = useSelector((state) => state.tree.apples);
-  const checkStatus = useSelector((state) => state.tree.checkStatus);
+  const treeState = useSelector((state) => state.tree.treeState);
   const dispatch = useDispatch();
 
   const { shakeTreeState } = props;
   useEffect(() => {
-    dispatch(appleCoordinateGenerator());
-    dispatch(appleCoordinateGenerator());
-    dispatch(appleCoordinateGenerator());
-    dispatch(appleCoordinateGenerator());
-    dispatch(checkAppleCoordinate());
-
+    if (!treeState) {
+      dispatch(initTree());
+    }
+    console.log("treeState", treeState);
     // setTimeout(() => {   dispatch(removeApple(0)); }, 1000);
-  }, [dispatch]);
+  }, [dispatch, treeState]);
 
   console.log("apples", apples);
-  console.log("status", checkStatus);
   return (
     <div
       style={{
@@ -47,7 +40,7 @@ function TreeComponent(props) {
       >
         <TreeImg />{" "}
         {apples.map((coordinate, index) => (
-          <Apple key={"apple-" + index} coordinate={coordinate} />
+          <Apple key={"apple-" + index} index={index} coordinate={coordinate} />
         ))}
       </div>
     </div>

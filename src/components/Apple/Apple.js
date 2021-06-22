@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
 import useStateRef from "react-usestateref";
 import { ReactComponent as AppleImg } from "../../global/assets/images/apple.svg";
-import { useSelector } from "react-redux";
 import "./Apple.scss";
 
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { appleFallingDone, checkAppleFallingDone } from "../../store/tree";
+
 function Apple(props) {
-  const { coordinate } = props;
+  const dispatch = useDispatch();
+  const { coordinate, index } = props;
   const [appleLocation, setAppleLocation, locationRef] =
     useStateRef(coordinate);
   const shakeTreeState = useSelector(
     (state) => state.shakeButton.shakeTreeState
   );
+
+  const treeState = useSelector((state) => state.tree.treeState);
 
   useEffect(() => {
     // Drop Apples with timeout
@@ -23,14 +29,26 @@ function Apple(props) {
           });
 
           if (locationRef.current.y >= 90) {
-            clearInterval(yInterval);
             // Set drop status done
-            setAppleLocation({ y: locationRef.current.y, done: true });
+            setAppleLocation({
+              y: locationRef.current.y,
+              done: true,
+            });
+            dispatch(appleFallingDone(index));
+            dispatch(checkAppleFallingDone());
+            clearInterval(yInterval);
           }
         }, 50);
-      }, 4000);
+      }, 3000);
     }
-  }, [shakeTreeState, locationRef, setAppleLocation]);
+  }, [
+    shakeTreeState,
+    locationRef,
+    setAppleLocation,
+    treeState,
+    dispatch,
+    index,
+  ]);
 
   return (
     <div

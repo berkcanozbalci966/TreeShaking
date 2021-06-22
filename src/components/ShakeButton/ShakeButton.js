@@ -1,7 +1,7 @@
 import React from "react";
 import "./ShakeButton.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { shakeTreeToggler, shakeDone } from "../../store/shakeButtonSlice";
+import { shakeTree, shakeDone } from "../../store/shakeButtonSlice";
 
 function ShakeButton(props) {
   const shakeTreeState = useSelector(
@@ -10,10 +10,10 @@ function ShakeButton(props) {
   const dispatch = useDispatch();
 
   const shakeThatTree = () => {
-    dispatch(shakeTreeToggler());
+    dispatch(shakeTree());
     setTimeout(() => {
       dispatch(shakeDone());
-    }, 3000);
+    }, 4000);
   };
 
   return (

@@ -8,10 +8,8 @@ export const shakeButton = createSlice({
   },
   reducers: {
     // Shake Toggler
-    shakeTreeToggler: (state) => {
-      if (!state.shakeTreeState) {
-        state.shakeTreeState = !state.shakeTreeState;
-      }
+    shakeTree: (state) => {
+      state.shakeTreeState = true;
     },
     // Shake done method
     shakeDone: (state) => {
@@ -20,7 +18,6 @@ export const shakeButton = createSlice({
   },
 });
 
-export const { fusionCoordinates, shakeTreeToggler, shakeDone } =
-  shakeButton.actions;
+export const { fusionCoordinates, shakeTree, shakeDone } = shakeButton.actions;
 
 export default shakeButton.reducer;

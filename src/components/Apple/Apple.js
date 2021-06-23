@@ -38,8 +38,8 @@ function Apple(props) {
             dispatch(checkAppleFallingDone());
             clearInterval(yInterval);
           }
-        }, 50);
-      }, 3000);
+        }, 10);
+      }, 5000);
     }
   }, [
     shakeTreeState,
@@ -57,6 +57,7 @@ function Apple(props) {
         top: appleLocation.y + "%",
         left: appleLocation.x + "%",
       }}
+      data-testid="apple"
     >
       <AppleImg
         style={{

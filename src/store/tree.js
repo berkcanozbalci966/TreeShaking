@@ -20,17 +20,17 @@ export const tree = createSlice({
       state.apples.push({ x: coordinate.x, y: coordinate.y, done: false });
     },
     // This method not used
-    checkAppleCoordinate: (state, action) => {
-      state.apples.sort((a, b) => a.x - b.x);
-      state.checkStatus = state.apples.filter((apple, index) => {
-        if (state.apples[index + 1]) {
-          if (state.apples[index + 1].x + 10 >= apple.x) {
-            return apple.x;
-          }
-        }
-        return state.apples.x;
-      });
-    },
+    // checkAppleCoordinate: (state, action) => {
+    //   state.apples.sort((a, b) => a.x - b.x);
+    //   state.checkStatus = state.apples.filter((apple, index) => {
+    //     if (state.apples[index + 1]) {
+    //       if (state.apples[index + 1].x + 10 >= apple.x) {
+    //         return apple.x;
+    //       }
+    //     }
+    //     return state.apples.x;
+    //   });
+    // },
     // apple state setter & Calculate Score
     appleFallingDone: (state, action) => {
       state.apples[action.payload].done = true;

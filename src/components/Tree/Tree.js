@@ -15,17 +15,16 @@ function TreeComponent(props) {
   const dispatch = useDispatch();
 
   const { shakeTreeState } = props;
+
   useEffect(() => {
     if (!treeState) {
       dispatch(initTree());
     }
-    console.log("treeState", treeState);
-    // setTimeout(() => {   dispatch(removeApple(0)); }, 1000);
   }, [dispatch, treeState]);
 
-  console.log("apples", apples);
   return (
     <div
+      data-testid="tree"
       style={{
         position: "relative",
         display: "inline-block",
@@ -40,7 +39,12 @@ function TreeComponent(props) {
       >
         <TreeImg />{" "}
         {apples.map((coordinate, index) => (
-          <Apple key={"apple-" + index} index={index} coordinate={coordinate} />
+          <Apple
+            key={"apple-" + index}
+            index={index}
+            coordinate={coordinate}
+            data-testid="apple"
+          />
         ))}
       </div>
     </div>

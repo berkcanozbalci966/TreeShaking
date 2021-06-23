@@ -8,6 +8,7 @@ import { Provider, useSelector } from "react-redux";
 import store from "./store/store";
 
 // Components
+import Score from "./components/Score/Score";
 import Tree from "./components/Tree/Tree";
 import Basket from "./components/Basket/Basket";
 import ShakeButton from "./components/ShakeButton/ShakeButton";
@@ -21,7 +22,7 @@ const App = () => {
 
   return (
     <div style={{ flexDirection: "column" }} className="container">
-      <h2>SCORE : {score} </h2>
+      <Score score={score} />
       <Tree shakeTreeState={shakeTreeState} />
       <Basket />
       <ShakeButton />

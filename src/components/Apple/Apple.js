@@ -38,7 +38,7 @@ function Apple(props) {
             dispatch(checkAppleFallingDone());
             clearInterval(yInterval);
           }
-        }, 10);
+        }, 50);
       }, 5000);
     }
   }, [
